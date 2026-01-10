@@ -155,3 +155,19 @@ dmypy.json
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+
+
+# virtual environment
+env/
+venv/
+
+# environment variables
+.env
+
+# python cache
+__pycache__/
+*.pyc
+
+env/
+.env
