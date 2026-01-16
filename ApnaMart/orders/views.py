@@ -8,6 +8,7 @@ import json
 from store.models import Product
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.conf import settings
 
 
 def payments(request):
@@ -128,6 +129,7 @@ def place_order(request, total=0, quantity=0,):
                 'total': total,
                 'tax': tax,
                 'grand_total': grand_total,
+                'paypal_client_id': settings.PAYPAL_CLIENT_ID,
             }
             return render(request, 'orders/payments.html', context)
     else:
@@ -155,6 +157,7 @@ def order_complete(request):
             'transID': payment.payment_id,
             'payment': payment,
             'subtotal': subtotal,
+           
         }
         return render(request, 'orders/order_complete.html', context)
     except (Payment.DoesNotExist, Order.DoesNotExist):

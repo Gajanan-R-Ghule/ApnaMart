@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool) # True
+DEBUG = config('DEBUG', cast=bool) # True
 
 # ALLOWED_HOSTS = ['greatkart-course-env.eba-pepcery4.us-west-2.elasticbeanstalk.com', "*"]
 
@@ -64,7 +64,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 SESSION_EXPIRE_SECONDS = 3600  # 1 hour
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
@@ -114,11 +117,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'ApnaMart',
-            'USER': 'root',
-            'PASSWORD': 'root',
-            'HOST': 'localhost',
-            'PORT': '3306',
+            'NAME':config('DB_NAME'),
+            'USER':config('DB_USER'),
+            'PASSWORD':config('DB_PASSWORD'),
+            'HOST':config('DB_HOST'),
+            'PORT':config('DB_PORT')
 
         }
     }
@@ -180,7 +183,9 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
+# Client Id
 
+PAYPAL_CLIENT_ID= config('PAYPAL_CLIENT_ID')
 # SMTP configuration
 
 EMAIL_HOST = config('EMAIL_HOST')
@@ -189,3 +194,4 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
