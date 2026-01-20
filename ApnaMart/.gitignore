@@ -120,10 +120,11 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
-.venv
 env/
 venv/
+.env
+env
+.venv
 ENV/
 env.bak/
 venv.bak/
@@ -160,18 +161,7 @@ dmypy.json
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
-
-
-# virtual environment
-env/
-venv/
-
-# environment variables
-.env
-
 # python cache
 __pycache__/
 *.pyc
 
-env/
-.env
