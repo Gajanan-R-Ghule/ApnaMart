@@ -15,6 +15,8 @@ from decouple import config
 import dj_database_url
 import os
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -23,14 +25,13 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = config('SECRET_KEY')
+
 SECRET_KEY = config('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool,default=False) # True
 
-# ALLOWED_HOSTS = ['greatkart-course-env.eba-pepcery4.us-west-2.elasticbeanstalk.com', "*"]
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
@@ -53,7 +54,7 @@ INSTALLED_APPS = [
     'store',
     'carts',
     'orders',
-    'storages',
+
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ MIDDLEWARE = [
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-SESSION_EXPIRE_SECONDS = 3600  # 1 hour
+SESSION_EXPIRE_SECONDS = 3600 
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 SESSION_TIMEOUT_REDIRECT = 'accounts/login'
 
@@ -133,14 +134,14 @@ AUTH_USER_MODEL = 'accounts.Account'
 ENVIRONMENT = config("ENVIRONMENT", default="local")
 
 if ENVIRONMENT == "production":
-    # ✅ Render / Production (PostgreSQL)
+    #  Render / Production (PostgreSQL)
     DATABASES = {
         'default': dj_database_url.config(
             default=config("DATABASE_URL")
         )
     }
 else:
-    # ✅ Local (MySQL)
+    #  Local (MySQL)
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -151,6 +152,7 @@ else:
             'PORT': config('DB_PORT', default='3306'),
         }
     }
+
 
 
 
@@ -191,23 +193,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 
-# STATIC_URL = '/static/'
-# STATIC_ROOT = BASE_DIR /'static'
-# STATICFILES_DIRS = [
-#     'ApnaMart/static',
-# ]
-
 STATIC_URL = '/static/'
-
-# Source static files (CSS, JS, images)
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
 # collectstatic output (production)
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-
 
 
 MEDIA_URL = '/media/'
@@ -231,3 +223,4 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
